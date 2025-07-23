@@ -4,8 +4,8 @@ import { getPocketNetProxyInstance } from '../lib'
 /**
  * GET /
  *
- * Renders the welcome page for the application.
- * This route handles the root path of the application and renders the `index` view.
+ * Serves the QR Payment app main page.
+ * This route handles the root path of the application and serves the main HTML file.
  *
  * @param {Request} req - The incoming request object.
  * @param {Response} res - The outgoing response object.
@@ -15,7 +15,7 @@ import { getPocketNetProxyInstance } from '../lib'
  * app.get('/', index);
  */
 export async function index(req: Request, res: Response): Promise<void> {
-  res.status(200).json({ title: 'Welcome to Bastyon :))' })
+  res.sendFile('index.html', { root: './public' })
 }
 
 /**
