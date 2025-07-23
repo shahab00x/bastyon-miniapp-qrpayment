@@ -23,7 +23,7 @@ export async function getWalletInfo(req: Request, res: Response): Promise<void> 
       
       // Get balance for the current wallet
       try {
-        const balanceResult = await pocketNetProxyInstance.rpc.getaddressinfo(address)
+        const balanceResult = await pocketNetProxyInstance.rpc.getaddressinfo({ address })
         balance = balanceResult.balance || 0
       } catch (balanceError) {
         console.warn('Could not fetch balance:', balanceError)
@@ -123,7 +123,7 @@ export async function getBalance(req: Request, res: Response): Promise<void> {
     const pocketNetProxyInstance = await getPocketNetProxyInstance()
 
     // Get balance for the address
-    const result = await pocketNetProxyInstance.rpc.getaddressinfo(address)
+    const result = await pocketNetProxyInstance.rpc.getaddressinfo({ address })
 
     res.status(200).json({
       success: true,
