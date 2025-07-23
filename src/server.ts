@@ -2,7 +2,7 @@ import { app } from './app'
 
 const port = app.get('port')
 
-const server = app.listen(port, onListening)
+const server = app.listen(port, '0.0.0.0', onListening)
 server.on('error', onError)
 
 function onError(error: NodeJS.ErrnoException) {
