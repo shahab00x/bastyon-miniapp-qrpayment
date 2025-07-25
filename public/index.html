@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="Content-Security-Policy" content="frame-ancestors *">
+    <title>Bastyon QR Payment</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="manifest" href="/b_manifest.json">
+    <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔗 Bastyon QR Payment</h1>
+            <p>Send and receive PKOIN using QR codes</p>
+        </header>
+
+        <nav class="tab-nav">
+            <button class="tab-btn active" data-tab="receive">📥 Receive</button>
+            <button class="tab-btn" data-tab="send">📤 Send</button>
+            <button class="tab-btn" data-tab="wallet">💰 Wallet</button>
+        </nav>
+
+        <!-- Receive Tab -->
+        <div id="receive-tab" class="tab-content active">
+            <div class="card">
+                <h2>Generate Payment QR Code</h2>
+                <form id="receive-form">
+                    <div class="form-group">
+                        <label for="receive-address">Your Address:</label>
+                        <input type="text" id="receive-address" readonly placeholder="Loading...">
+                        <button type="button" id="refresh-address">🔄</button>
+                    </div>
+                    <div class="form-group">
+                        <label for="receive-amount">Amount (PKOIN):</label>
+                        <input type="number" id="receive-amount" step="0.00000001" min="0" placeholder="Optional">
+                    </div>
+                    <div class="form-group">
+                        <label for="receive-message">Message:</label>
+                        <input type="text" id="receive-message" placeholder="Optional payment description">
+                    </div>
+                    <button type="submit">Generate QR Code</button>
+                </form>
+                
+                <div id="qr-result" class="qr-result" style="display: none;">
+                    <h3>Payment QR Code</h3>
+                    <div id="qr-code"></div>
+                    <div class="qr-info">
+                        <p><strong>Address:</strong> <span id="qr-address"></span></p>
+                        <p id="qr-amount-display" style="display: none;"><strong>Amount:</strong> <span id="qr-amount"></span> PKOIN</p>
+                        <p id="qr-message-display" style="display: none;"><strong>Message:</strong> <span id="qr-message"></span></p>
+                    </div>
+                    <button id="copy-address">Copy Address</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Send Tab -->
+        <div id="send-tab" class="tab-content">
+            <div class="card">
+                <h2>Scan QR Code to Send Payment</h2>
+                <div class="scanner-container">
+                    <div id="qr-reader" style="width: 100%;"></div>
+                    <button id="start-scan">Start Camera</button>
+                    <button id="stop-scan" style="display: none;">Stop Camera</button>
+                </div>
+                
+                <div class="manual-input">
+                    <h3>Or Enter Manually</h3>
+                    <form id="send-form">
+                        <div class="form-group">
+                            <label for="send-address">Recipient Address:</label>
+                            <input type="text" id="send-address" required placeholder="Enter recipient address">
+                        </div>
+                        <div class="form-group">
+                            <label for="send-amount">Amount (PKOIN):</label>
+                            <input type="number" id="send-amount" step="0.00000001" min="0.00000001" required placeholder="Enter amount">
+                        </div>
+                        <div class="form-group">
+                            <label for="send-message">Message:</label>
+                            <input type="text" id="send-message" placeholder="Optional message">
+                        </div>
+                        <div class="form-group">
+                            <label for="send-private-key">Private Key:</label>
+                            <input type="password" id="send-private-key" required placeholder="Enter your private key">
+                        </div>
+                        <button type="submit">Send Payment</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Wallet Tab -->
+        <div id="wallet-tab" class="tab-content">
+            <div class="card">
+                <h2>Wallet Information</h2>
+                <div id="wallet-info">
+                    <div class="wallet-item">
+                        <label>Address:</label>
+                        <span id="wallet-address">Loading...</span>
+                        <button id="copy-wallet-address">Copy</button>
+                    </div>
+                    <div class="wallet-item">
+                        <label>Balance:</label>
+                        <span id="wallet-balance">Loading...</span>
+                    </div>
+                    <button id="refresh-wallet">Refresh Wallet Info</button>
+                </div>
+                
+                <div class="import-wallet">
+                    <h3>Import Wallet</h3>
+                    <form id="import-form">
+                        <div class="form-group">
+                            <label for="import-private-key">Private Key:</label>
+                            <input type="password" id="import-private-key" placeholder="Enter your private key">
+                        </div>
+                        <button type="submit">Import Wallet</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Status Messages -->
+        <div id="status-message" class="status-message"></div>
+    </div>
+
+    <script src="/js/app.js"></script>
+</body>
+</html>

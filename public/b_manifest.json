@@ -1,0 +1,11 @@
+{
+  "id": "qrpayment.bastyon.ir",
+  "name": "QR Payment",
+  "description": "An application that allows users to utilize QR codes to pay with pkoin in person",
+  "author": "PUg3fuJRCeN1nae2BnZQzW6SodDxRovNS2",
+  "permissions": ["account", "payment", "sign", "camera"],
+  "version": "1.0.0",
+  "homepage": "/",
+  "start_url": "/",
+  "display": "standalone"
+}
